@@ -1,6 +1,7 @@
 import { createClient as createSupabaseClient } from "@supabase/supabase-js";
+import type { Database } from "./database.types";
 
-let supabaseClient: ReturnType<typeof createSupabaseClient> | null = null;
+let supabaseClient: ReturnType<typeof createSupabaseClient<Database>> | null = null;
 
 export function createClient() {
   // Lazy initialization to avoid blocking page load
@@ -19,7 +20,7 @@ export function createClient() {
     }
 
     // Use the standard Supabase JS client instead of SSR wrapper for browser
-    supabaseClient = createSupabaseClient(supabaseUrl, supabaseAnonKey, {
+    supabaseClient = createSupabaseClient<Database>(supabaseUrl, supabaseAnonKey, {
       auth: {
         persistSession: true,
         autoRefreshToken: true,

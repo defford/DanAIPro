@@ -171,7 +171,7 @@ export function ProductEditForm({ product }: ProductEditFormProps) {
           placeholder="<p>I've used this for 6 months...</p>"
         />
         <p className="mt-1 text-sm text-gray-500">
-          e.g., &lt;p&gt;I've used this for 6 months...&lt;/p&gt;
+          e.g., &lt;p&gt;I&apos;ve used this for 6 months...&lt;/p&gt;
         </p>
       </div>
 

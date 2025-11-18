@@ -70,7 +70,7 @@ export function ReviewPageLoader({ slug }: ReviewPageLoaderProps) {
       <main className="min-h-screen flex items-center justify-center p-8">
         <div className="text-center">
           <h1 className="text-4xl font-bold mb-4">404 - Product Not Found</h1>
-          <p className="text-lg mb-8">The product you're looking for doesn't exist.</p>
+          <p className="text-lg mb-8">The product you&apos;re looking for doesn&apos;t exist.</p>
           <Link
             href="/"
             className="text-blue-600 hover:text-blue-700 underline"
