@@ -22,6 +22,7 @@ export interface Database {
           affiliate_nickname: string
           landing_page: string
           views: number
+          tags: string[]
           created_at: string
           updated_at: string
         }
@@ -37,6 +38,7 @@ export interface Database {
           affiliate_nickname?: string
           landing_page?: string
           views?: number
+          tags?: string[]
           created_at?: string
           updated_at?: string
         }
@@ -52,6 +54,7 @@ export interface Database {
           affiliate_nickname?: string
           landing_page?: string
           views?: number
+          tags?: string[]
           created_at?: string
           updated_at?: string
         }

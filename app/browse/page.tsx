@@ -3,15 +3,16 @@ import { ProductGrid } from "@/components/ProductGrid";
 import Link from "next/link";
 
 interface BrowsePageProps {
-  searchParams: {
+  searchParams: Promise<{
     tag?: string;
-  };
+  }>;
 }
 
 export const dynamic = "force-dynamic";
 
 export default async function BrowsePage({ searchParams }: BrowsePageProps) {
-  const selectedTag = searchParams.tag;
+  const resolvedSearchParams = await searchParams;
+  const selectedTag = resolvedSearchParams.tag;
   const products = await listProducts(selectedTag);
   const tags = await getAllTags();
 
