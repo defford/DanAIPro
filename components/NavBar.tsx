@@ -13,7 +13,13 @@ export function NavBar() {
               href="/"
               className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
             >
-              Products
+              Home
+            </Link>
+            <Link
+              href="/browse"
+              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
+            >
+              Browse
             </Link>
           </div>
         </div>
@@ -21,4 +27,3 @@ export function NavBar() {
     </nav>
   );
 }
-

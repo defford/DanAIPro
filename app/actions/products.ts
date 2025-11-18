@@ -13,6 +13,7 @@ export interface CreateProductInput {
   link_hub_text?: string;
   affiliate_nickname?: string;
   landing_page?: string;
+  tags?: string[];
 }
 
 export async function createProduct(input: CreateProductInput) {
@@ -35,6 +36,7 @@ export async function createProduct(input: CreateProductInput) {
         review_body: input.review_body,
         image_url: input.image_url || null,
         link_hub_text: input.link_hub_text || null,
+        tags: input.tags || [],
         affiliate_nickname: input.affiliate_nickname || "danaipro",
         landing_page: input.landing_page || "Default",
       },
@@ -49,6 +51,7 @@ export async function createProduct(input: CreateProductInput) {
   revalidatePath("/admin/products");
   revalidatePath(`/review/${input.slug}`);
   revalidatePath("/");
+  revalidatePath("/browse");
 
   return data;
 }
@@ -78,6 +81,7 @@ export async function updateProduct(
 
   revalidatePath("/admin/products");
   revalidatePath("/");
+  revalidatePath("/browse");
   if (input.slug) {
     revalidatePath(`/review/${input.slug}`);
   }
@@ -102,5 +106,5 @@ export async function deleteProduct(id: string) {
 
   revalidatePath("/admin/products");
   revalidatePath("/");
+  revalidatePath("/browse");
 }
-

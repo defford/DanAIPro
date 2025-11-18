@@ -17,6 +17,7 @@ export function ProductForm() {
     review_body: "",
     image_url: "",
     link_hub_text: "",
+    tags: "",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -33,6 +34,11 @@ export function ProductForm() {
         throw new Error("You must be logged in to create products");
       }
 
+      const tagsArray = formData.tags
+        .split(",")
+        .map((t) => t.trim())
+        .filter((t) => t.length > 0);
+
       // Create product using client-side Supabase
       const { data, error: insertError } = await supabase
         .from("products")
@@ -45,6 +51,7 @@ export function ProductForm() {
             review_body: formData.review_body,
             image_url: formData.image_url || null,
             link_hub_text: formData.link_hub_text || null,
+            tags: tagsArray,
             affiliate_nickname: "danaipro",
             landing_page: "Default",
           },
@@ -210,6 +217,25 @@ export function ProductForm() {
         />
         <p className="mt-1 text-sm text-gray-500">
           e.g., 🤖 My #1 AI Writing Tool
+        </p>
+      </div>
+
+      <div>
+        <label htmlFor="tags" className="block text-sm font-medium mb-2">
+          Tags
+        </label>
+        <input
+          id="tags"
+          type="text"
+          value={formData.tags}
+          onChange={(e) =>
+            setFormData({ ...formData, tags: e.target.value })
+          }
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+          placeholder="productivity, writing, ai"
+        />
+        <p className="mt-1 text-sm text-gray-500">
+          Comma separated tags: productivity, writing, ai
         </p>
       </div>
 

@@ -12,16 +12,23 @@ export interface Product {
   affiliate_nickname: string;
   landing_page: string;
   views: number;
+  tags: string[];
   created_at: string;
   updated_at: string;
 }
 
-export async function listProducts(): Promise<Product[]> {
+export async function listProducts(tag?: string): Promise<Product[]> {
   const supabase = await createServerClient();
-  const { data, error } = await supabase
+  let query = supabase
     .from("products")
     .select("*")
     .order("views", { ascending: false });
+
+  if (tag) {
+    query = query.contains("tags", [tag]);
+  }
+
+  const { data, error } = await query;
 
   if (error) {
     console.error("Error fetching products:", error);
@@ -29,6 +36,24 @@ export async function listProducts(): Promise<Product[]> {
   }
 
   return data || [];
+}
+
+export async function getAllTags(): Promise<string[]> {
+  const supabase = await createServerClient();
+  const { data, error } = await supabase
+    .from("products")
+    .select("tags");
+
+  if (error) {
+    console.error("Error fetching tags:", error);
+    throw new Error(`Failed to fetch tags: ${error.message}`);
+  }
+
+  if (!data) return [];
+
+  // Flatten array of arrays and get unique values
+  const allTags = data.flatMap(p => p.tags || []);
+  return Array.from(new Set(allTags)).sort();
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | null> {
@@ -69,4 +94,3 @@ export async function getProductById(id: string): Promise<Product | null> {
 
   return data;
 }
-
