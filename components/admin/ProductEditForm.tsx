@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { downloadImageFromUrl } from "@/app/actions/products";
 import { Product } from "@/lib/repositories/products";
 import Link from "next/link";
 
@@ -44,6 +45,16 @@ export function ProductEditForm({ product }: ProductEditFormProps) {
         .map((t) => t.trim())
         .filter((t) => t.length > 0);
 
+      // If image_url is a web URL, download and save it
+      let finalImageUrl = formData.image_url || null;
+      if (formData.image_url && (formData.image_url.startsWith("http://") || formData.image_url.startsWith("https://"))) {
+        try {
+          finalImageUrl = await downloadImageFromUrl(formData.image_url, formData.slug);
+        } catch (downloadError) {
+          throw new Error(`Failed to download image: ${downloadError instanceof Error ? downloadError.message : "Unknown error"}`);
+        }
+      }
+
       // Update product using client-side Supabase
       const { error: updateError } = await supabase
         .from("products")
@@ -53,7 +64,7 @@ export function ProductEditForm({ product }: ProductEditFormProps) {
           hoplink: formData.hoplink,
           review_title: formData.review_title,
           review_body: formData.review_body,
-          image_url: formData.image_url || null,
+          image_url: finalImageUrl,
           link_hub_text: formData.link_hub_text || null,
           tags: tagsArray,
         })
@@ -194,10 +205,10 @@ export function ProductEditForm({ product }: ProductEditFormProps) {
             setFormData({ ...formData, image_url: e.target.value })
           }
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-          placeholder="/images/ai-tool.png"
+          placeholder="/images/ai-tool.png or https://example.com/image.png"
         />
         <p className="mt-1 text-sm text-gray-500">
-          e.g., /images/ai-tool.png
+          Local path (e.g., /images/ai-tool.png) or web URL (e.g., https://example.com/image.png). Web URLs will be downloaded and saved automatically.
         </p>
       </div>
 
