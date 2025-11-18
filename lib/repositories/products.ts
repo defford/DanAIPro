@@ -11,6 +11,7 @@ export interface Product {
   link_hub_text: string | null;
   affiliate_nickname: string;
   landing_page: string;
+  views: number;
   created_at: string;
   updated_at: string;
 }
@@ -20,7 +21,7 @@ export async function listProducts(): Promise<Product[]> {
   const { data, error } = await supabase
     .from("products")
     .select("*")
-    .order("created_at", { ascending: false });
+    .order("views", { ascending: false });
 
   if (error) {
     console.error("Error fetching products:", error);

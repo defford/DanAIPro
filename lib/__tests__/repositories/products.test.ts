@@ -26,8 +26,10 @@ describe("Product Repository", () => {
         review_title: "Test Review",
         review_body: "Test body",
         image_url: null,
+        link_hub_text: null,
         affiliate_nickname: "danaipro",
         landing_page: "Default",
+        views: 0,
         created_at: "2024-01-01",
         updated_at: "2024-01-01",
       };
@@ -93,8 +95,10 @@ describe("Product Repository", () => {
           review_title: "Review 1",
           review_body: "Body 1",
           image_url: null,
+          link_hub_text: null,
           affiliate_nickname: "danaipro",
           landing_page: "Default",
+          views: 10,
           created_at: "2024-01-01",
           updated_at: "2024-01-01",
         },
@@ -111,6 +115,7 @@ describe("Product Repository", () => {
 
       expect(result).toEqual(mockProducts);
       expect(mockSupabase.from).toHaveBeenCalledWith("products");
+      expect(mockQuery.order).toHaveBeenCalledWith("views", { ascending: false });
     });
 
     it("should throw error on database error", async () => {

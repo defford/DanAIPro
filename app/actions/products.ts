@@ -48,6 +48,7 @@ export async function createProduct(input: CreateProductInput) {
 
   revalidatePath("/admin/products");
   revalidatePath(`/review/${input.slug}`);
+  revalidatePath("/");
 
   return data;
 }
@@ -76,6 +77,7 @@ export async function updateProduct(
   }
 
   revalidatePath("/admin/products");
+  revalidatePath("/");
   if (input.slug) {
     revalidatePath(`/review/${input.slug}`);
   }
@@ -99,5 +101,6 @@ export async function deleteProduct(id: string) {
   }
 
   revalidatePath("/admin/products");
+  revalidatePath("/");
 }
 

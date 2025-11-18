@@ -83,7 +83,7 @@ export function ReviewPageLoader({ slug }: ReviewPageLoaderProps) {
   }
 
   return (
-    <main className="min-h-screen p-8">
+    <main className="min-h-screen pt-24 pb-8 px-8">
       <div className="max-w-4xl mx-auto">
         <ProductHero product={product} />
         <div

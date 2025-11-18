@@ -21,6 +21,7 @@ export interface Database {
           link_hub_text: string | null
           affiliate_nickname: string
           landing_page: string
+          views: number
           created_at: string
           updated_at: string
         }
@@ -35,6 +36,7 @@ export interface Database {
           link_hub_text?: string | null
           affiliate_nickname?: string
           landing_page?: string
+          views?: number
           created_at?: string
           updated_at?: string
         }
@@ -49,6 +51,7 @@ export interface Database {
           link_hub_text?: string | null
           affiliate_nickname?: string
           landing_page?: string
+          views?: number
           created_at?: string
           updated_at?: string
         }

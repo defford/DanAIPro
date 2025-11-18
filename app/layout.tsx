@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { PageViewTracker } from "@/components/PageViewTracker";
+import { NavBar } from "@/components/NavBar";
 
 export const metadata: Metadata = {
   title: "Affiliate Hub",
@@ -18,6 +19,7 @@ export default function RootLayout({
       <body>
         <GoogleAnalytics />
         <PageViewTracker />
+        <NavBar />
         {children}
       </body>
     </html>
