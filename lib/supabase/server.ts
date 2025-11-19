@@ -36,7 +36,11 @@ export async function createServerClient() {
 
 import { createClient } from "@supabase/supabase-js";
 
-export function createStaticClient() {
-  return createClient<Database>(supabaseUrl, supabaseAnonKey);
+export function createStaticClient(options?: {
+  global?: {
+    fetch?: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
+  };
+}) {
+  return createClient<Database>(supabaseUrl, supabaseAnonKey, options);
 }
 

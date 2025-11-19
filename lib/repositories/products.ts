@@ -18,7 +18,18 @@ export interface Product {
 }
 
 export async function listProducts(tag?: string): Promise<Product[]> {
-  const supabase = createStaticClient();
+  const supabase = createStaticClient({
+    global: {
+      fetch: (url, options) => {
+        return fetch(url, {
+          ...options,
+          next: {
+            tags: ["products"],
+          },
+        });
+      },
+    },
+  });
   let query = supabase
     .from("products")
     .select("*")
@@ -57,7 +68,18 @@ export async function getAllTags(): Promise<string[]> {
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | null> {
-  const supabase = createStaticClient();
+  const supabase = createStaticClient({
+    global: {
+      fetch: (url, options) => {
+        return fetch(url, {
+          ...options,
+          next: {
+            tags: ["products"],
+          },
+        });
+      },
+    },
+  });
   const { data, error } = await supabase
     .from("products")
     .select("*")
@@ -77,7 +99,18 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
 }
 
 export async function getProductById(id: string): Promise<Product | null> {
-  const supabase = createStaticClient();
+  const supabase = createStaticClient({
+    global: {
+      fetch: (url, options) => {
+        return fetch(url, {
+          ...options,
+          next: {
+            tags: ["products"],
+          },
+        });
+      },
+    },
+  });
   const { data, error } = await supabase
     .from("products")
     .select("*")

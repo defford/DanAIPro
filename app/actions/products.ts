@@ -1,7 +1,7 @@
 "use server";
 
 import { createServerClient } from "@/lib/supabase/server";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { writeFile, mkdir } from "fs/promises";
 import { join } from "path";
 import { existsSync } from "fs";
@@ -21,7 +21,7 @@ export interface CreateProductInput {
 
 export async function createProduct(input: CreateProductInput) {
   const supabase = await createServerClient();
-  
+
   // Check auth - if user is not authenticated, RLS will block the insert
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) {
@@ -51,6 +51,7 @@ export async function createProduct(input: CreateProductInput) {
     throw new Error(`Failed to create product: ${error.message}`);
   }
 
+  revalidateTag("products");
   revalidatePath("/admin/products");
   revalidatePath(`/review/${input.slug}`);
   revalidatePath("/");
@@ -64,7 +65,7 @@ export async function updateProduct(
   input: Partial<CreateProductInput>
 ) {
   const supabase = await createServerClient();
-  
+
   // Check auth - if user is not authenticated, RLS will block the update
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) {
@@ -82,6 +83,7 @@ export async function updateProduct(
     throw new Error(`Failed to update product: ${error.message}`);
   }
 
+  revalidateTag("products");
   revalidatePath("/admin/products");
   revalidatePath("/");
   revalidatePath("/browse");
@@ -94,7 +96,7 @@ export async function updateProduct(
 
 export async function deleteProduct(id: string) {
   const supabase = await createServerClient();
-  
+
   // Check auth - if user is not authenticated, RLS will block the delete
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) {
@@ -107,6 +109,7 @@ export async function deleteProduct(id: string) {
     throw new Error(`Failed to delete product: ${error.message}`);
   }
 
+  revalidateTag("products");
   revalidatePath("/admin/products");
   revalidatePath("/");
   revalidatePath("/browse");
