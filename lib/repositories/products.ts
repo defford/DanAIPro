@@ -1,4 +1,4 @@
-import { createServerClient } from "@/lib/supabase/server";
+import { createStaticClient } from "@/lib/supabase/server";
 
 export interface Product {
   id: string;
@@ -18,7 +18,7 @@ export interface Product {
 }
 
 export async function listProducts(tag?: string): Promise<Product[]> {
-  const supabase = await createServerClient();
+  const supabase = createStaticClient();
   let query = supabase
     .from("products")
     .select("*")
@@ -39,7 +39,7 @@ export async function listProducts(tag?: string): Promise<Product[]> {
 }
 
 export async function getAllTags(): Promise<string[]> {
-  const supabase = await createServerClient();
+  const supabase = createStaticClient();
   const { data, error } = await supabase
     .from("products")
     .select("tags");
@@ -57,7 +57,7 @@ export async function getAllTags(): Promise<string[]> {
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | null> {
-  const supabase = await createServerClient();
+  const supabase = createStaticClient();
   const { data, error } = await supabase
     .from("products")
     .select("*")
@@ -77,7 +77,7 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
 }
 
 export async function getProductById(id: string): Promise<Product | null> {
-  const supabase = await createServerClient();
+  const supabase = createStaticClient();
   const { data, error } = await supabase
     .from("products")
     .select("*")

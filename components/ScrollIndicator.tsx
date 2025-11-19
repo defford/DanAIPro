@@ -13,14 +13,14 @@ export function ScrollIndicator() {
         const windowHeight = window.innerHeight;
         const scrollY = window.scrollY || window.pageYOffset;
         const documentHeight = document.documentElement.scrollHeight;
-        
+
         // Hide arrow when:
         // 1. Products section is visible (top is above viewport)
         // 2. AND we're near the bottom of the products section or at the bottom of the page
         const isProductsSectionVisible = rect.top < windowHeight;
         const isNearBottomOfPage = scrollY + windowHeight >= documentHeight - 100;
         const isNearBottomOfSection = rect.bottom <= windowHeight + 200;
-        
+
         const shouldHide = isProductsSectionVisible && (isNearBottomOfPage || isNearBottomOfSection);
         setIsVisible(!shouldHide);
       }
@@ -54,11 +54,11 @@ export function ScrollIndicator() {
     <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-20">
       <button
         onClick={scrollToProducts}
-        className="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center shadow-lg animate-bounce hover:bg-red-600 transition-colors cursor-pointer"
+        className="w-12 h-12 bg-[var(--accent-primary)] rounded-full flex items-center justify-center shadow-lg animate-bounce hover:bg-[var(--accent-secondary)] transition-colors cursor-pointer"
         aria-label="Scroll to products"
       >
         <svg
-          className="w-6 h-6 text-white"
+          className="w-6 h-6 text-[var(--text-on-accent)]"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"

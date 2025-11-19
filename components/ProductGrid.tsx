@@ -21,17 +21,17 @@ export function ProductGrid({ products }: ProductGridProps) {
         <Link
           key={product.id}
           href={`/review/${product.slug}`}
-          className="group block bg-white border border-blue-900 hover:border-blue-600 transition-all duration-300 p-6 sm:p-8"
+          className="group block bg-[var(--card-bg)] border border-[var(--border-color)] hover:border-[var(--accent-primary)] transition-all duration-300 p-6 sm:p-8 rounded-[var(--radius)] shadow-[var(--card-shadow)] hover:-translate-y-1"
         >
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div className="flex-1">
-              <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+              <h3 className="text-2xl sm:text-3xl font-bold text-[var(--text-primary)] mb-2 group-hover:text-[var(--accent-primary)] transition-colors">
                 {product.review_title}
               </h3>
-              <p className="text-gray-600 text-base sm:text-lg mb-3">
+              <p className="text-[var(--text-secondary)] text-base sm:text-lg mb-3">
                 {product.product_name}
               </p>
-              <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500">
+              <div className="flex flex-wrap items-center gap-4 text-sm text-[var(--text-secondary)]">
                 <span>
                   {product.views} {product.views === 1 ? "view" : "views"}
                 </span>
@@ -40,7 +40,7 @@ export function ProductGrid({ products }: ProductGridProps) {
                     {product.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="bg-gray-100 text-gray-600 px-2 py-1 rounded-full text-xs uppercase tracking-wide font-medium"
+                        className="bg-[var(--bg-secondary)] text-[var(--text-secondary)] px-2 py-1 rounded-full text-xs uppercase tracking-wide font-medium border border-[var(--border-color)]"
                       >
                         {tag}
                       </span>
@@ -60,7 +60,7 @@ export function ProductGrid({ products }: ProductGridProps) {
                 />
               </div>
             )}
-            <div className="flex items-center text-blue-600 font-semibold group-hover:translate-x-1 transition-transform">
+            <div className="flex items-center text-[var(--accent-primary)] font-semibold group-hover:translate-x-1 transition-transform">
               <span className="text-lg">→</span>
             </div>
           </div>

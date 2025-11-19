@@ -18,12 +18,12 @@ export function ProductHero({ product }: ProductHeroProps) {
 
   return (
     <div className="mb-8">
-      <h1 className="text-4xl font-bold mb-4">{product.review_title}</h1>
+      <h1 className="text-4xl font-bold mb-4 text-[var(--text-primary)]">{product.review_title}</h1>
       {product.image_url && (
         <a
           href={trackedLink}
           onClick={handleImageClick}
-          className="block relative w-full h-64 md:h-96 mb-6 rounded-lg overflow-hidden bg-gray-100 cursor-pointer hover:opacity-90 transition-opacity"
+          className="block relative w-full h-64 md:h-96 mb-6 rounded-[var(--radius)] overflow-hidden bg-[var(--bg-secondary)] cursor-pointer hover:opacity-90 transition-opacity"
         >
           <Image
             src={product.image_url}

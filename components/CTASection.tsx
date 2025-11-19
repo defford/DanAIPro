@@ -25,7 +25,7 @@ export function CTASection({
       <a
         href={trackedLink}
         onClick={handleClick}
-        className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-colors"
+        className="inline-block bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-[var(--text-on-accent)] font-bold py-4 px-8 rounded-[var(--radius)] text-lg transition-colors shadow-lg"
       >
         {buttonText}
       </a>
